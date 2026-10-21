@@ -61,6 +61,16 @@ supabase/
 Rules enforced by the database: every row belongs to its owner (RLS), an item's place must belong
 to the same owner (composite foreign key), text fields are trimmed and blanks stored as null.
 
+## Deployment
+
+Hosted on Vercel (project `wardrobe-manager`, functions in Paris `cdg1`, next to the database):
+https://wardrobe-manager-eta.vercel.app
+
+Every push to `main` deploys to production; other branches get preview URLs.
+`PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_PUBLISHABLE_KEY` are set in the Vercel project.
+
+On the phone: open the URL in Safari → Share → Add to Home Screen, and it opens full-screen like an app.
+
 ## Database workflow
 
 The hosted project is `ovantbkjltkeoielnaui` (region eu-west-3). After changing the schema:
@@ -76,4 +86,3 @@ npm run db:types          # refresh src/lib/supabase/database.types.ts
 
 - Search: multilingual semantic search with pgvector (keyword search is in place)
 - Clothing type detection from photos (colour detection is in place)
-- Install on the phone as a home-screen app (web app manifest + icon)
