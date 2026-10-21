@@ -1,31 +1,29 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import PlaceDrawing from '#lib/components/PlaceDrawing.svelte';
-	import type { PageProps } from './$types';
+	import { useWardrobe } from '#lib/wardrobe/store.svelte.ts';
 
-	let { data }: PageProps = $props();
+	const w = useWardrobe();
 </script>
 
-<main class="home">
+<div class="home">
 	<h1>Wardrobe</h1>
 
 	<div class="grid">
-		{#each data.places as place, i (place.id)}
+		{#each w.places as place, i (place.id)}
 			<a
 				class="place-btn"
-				href={resolve('/places/[placeId]', { placeId: place.id })}
-				style:animation-delay="{120 + i * 90}ms"
+				href={resolve('/(app)/places/[placeId]', { placeId: place.id })}
+				style:animation-delay="{120 + i * 100}ms"
 			>
-				<span class="float" style:animation-delay="{-i * 2.4}s">
+				<span class="float" style:animation-delay={i ? '-3.5s' : '0s'}>
 					<span class="square"><PlaceDrawing kind={place.kind} /></span>
 				</span>
 				<span class="name">{place.name}</span>
 			</a>
-		{:else}
-			<p class="empty">No places yet.</p>
 		{/each}
 	</div>
-</main>
+</div>
 
 <style>
 	.home {
@@ -34,8 +32,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 56px;
-		min-height: 100dvh;
-		padding: 96px 40px 24px;
+		min-height: calc(100dvh - 120px);
 	}
 	h1 {
 		margin: 0;
@@ -43,7 +40,7 @@
 		line-height: 1;
 		font-weight: 500;
 		letter-spacing: -0.035em;
-		animation: fade-down 0.7s var(--ease-out) both;
+		animation: fadeDown 0.7s var(--ease-out) both;
 	}
 	.grid {
 		--sq: clamp(140px, min(calc(100dvh - 310px), calc((100vw - 136px) / 2)), 340px);
@@ -70,7 +67,7 @@
 		aspect-ratio: 1;
 		display: grid;
 		place-items: center;
-		border-radius: var(--r-place);
+		border-radius: 36px;
 		background: var(--surface);
 		border: 1px solid #e6e4de;
 		box-shadow:
@@ -101,15 +98,10 @@
 	.place-btn:hover .name {
 		color: var(--ink);
 	}
-	.empty {
-		grid-column: 1 / -1;
-		color: var(--muted);
-	}
-
 	@media (max-width: 760px) {
 		.home {
 			gap: 36px;
-			padding: 84px 16px 24px;
+			min-height: calc(100dvh - 108px);
 		}
 		h1 {
 			font-size: 44px;
