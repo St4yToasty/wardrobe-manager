@@ -1,0 +1,196 @@
+/* Wardrobe design tokens and base styles, taken from the Wardrobe design canvas. */
+
+:root {
+	/* ground and surfaces */
+	--ground: #f6f5f1; /* off-white page */
+	--surface: #fcfbf9; /* floating squares, cards, panels */
+	--surface-sunk: #efede8; /* photo / drawing wells */
+	--white: #ffffff;
+
+	/* ink */
+	--ink: #1d1d1b; /* near-black: text, outlines, selected states */
+	--ink-2: #3a3936;
+	--ink-3: #5f5e5a;
+	--muted: #6b6a66; /* secondary text, passes 4.5:1 on the ground */
+	--placeholder: #75736e;
+
+	/* lines */
+	--line: #e8e6e0;
+	--line-2: #e1dfd8;
+	--line-strong: #b5b3ad;
+	--drawing-idle: #cfccc4; /* home-screen drawings before they draw themselves */
+
+	/* shape */
+	--r-pill: 999px;
+	--r-field: 14px;
+	--r-card: 20px;
+	--r-square: 30px;
+	--r-place: 36px;
+
+	/* shadow for floating squares */
+	--float-shadow: 0 34px 60px -38px rgba(29, 29, 27, 0.35), 0 3px 10px -6px rgba(29, 29, 27, 0.08);
+
+	/* motion: quick, around or under a second */
+	--ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--t-fast: 0.2s;
+	--t-mid: 0.35s;
+	--t-slow: 0.65s;
+
+	--font: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+	color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	background: var(--ground);
+	color: var(--ink);
+	font-family: var(--font);
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+	color: inherit;
+}
+
+button {
+	cursor: pointer;
+}
+
+:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
+}
+
+.sr {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* ---- one button system: outline pill on off-white, dark on hover and when selected ---- */
+.pill {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	height: 48px;
+	padding: 0 22px 0 18px;
+	border: 1px solid var(--ink);
+	border-radius: var(--r-pill);
+	background: var(--ground);
+	color: var(--ink);
+	font-size: 14px;
+	font-weight: 500;
+	white-space: nowrap;
+	text-decoration: none;
+	transition:
+		background 0.25s ease,
+		color 0.25s ease,
+		border-color 0.25s ease,
+		transform var(--t-fast) var(--ease-out);
+}
+.pill:hover:not(:disabled),
+.pill.on {
+	background: var(--ink);
+	color: var(--ground);
+}
+.pill:active:not(:disabled) {
+	transform: scale(0.97);
+}
+.pill.primary {
+	background: var(--ink);
+	color: var(--ground);
+	font-weight: 600;
+}
+.pill.primary:hover:not(:disabled) {
+	background: var(--ink-2);
+	border-color: var(--ink-2);
+}
+.pill:disabled {
+	border-color: #cfcdc7;
+	color: #8c8a84;
+	cursor: not-allowed;
+}
+
+/* ---- form fields ---- */
+.field {
+	width: 100%;
+	height: 50px;
+	padding: 0 16px;
+	border: 1px solid var(--line-2);
+	border-radius: var(--r-field);
+	background: var(--white);
+	font-size: 16px; /* 16px keeps iOS from zooming in on focus */
+	outline: 0;
+	transition:
+		border-color 0.25s,
+		box-shadow 0.3s;
+}
+.field:focus {
+	border-color: #a9a7a0;
+	box-shadow: 0 0 0 4px rgba(29, 29, 27, 0.06);
+}
+.field::placeholder {
+	color: var(--placeholder);
+}
+.label {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--ink-2);
+}
+
+@keyframes rise {
+	from {
+		opacity: 0;
+		transform: translateY(16px) scale(0.985);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+@keyframes fade-down {
+	from {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-8px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
+}
