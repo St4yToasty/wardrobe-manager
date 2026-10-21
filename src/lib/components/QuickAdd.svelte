@@ -64,7 +64,7 @@
 				>
 			</button>
 		</div>
-		<div class="body">
+		<div class="body panel-body">
 			<div class="photo">
 				<label class="thumb">
 					<input

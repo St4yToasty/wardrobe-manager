@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '@fontsource-variable/geist';
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';

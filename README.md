@@ -20,24 +20,31 @@ meant for the browser: row level security keeps each user to their own rows.
 
 ```
 src/
-  env.ts                        declares the PUBLIC_SUPABASE_* variables ($app/env/public)
-  hooks.server.ts               per-request Supabase client, session check, sign-in guard
-  app.css                       design tokens + base styles (from the design canvas)
+  env.ts                          declares the PUBLIC_SUPABASE_* variables ($app/env/public)
+  hooks.server.ts                 per-request Supabase client, verified session, sign-in guard
+  app.css                         design tokens + the shared button/card/panel styles from the canvas
   lib/
-    supabase/database.types.ts  generated types (npm run db:types)
-    wardrobe/types.ts           app-level types (Place, Item, ...) and storage path helper
-    wardrobe/icons.ts           line drawings + iconFor(item): name-specific shape or type default
-    wardrobe/format.ts          euro(), plural()
-    components/PlaceDrawing.svelte
+    supabase/database.types.ts    generated types (npm run db:types)
+    wardrobe/store.svelte.ts      client store: the whole wardrobe + UI state, optimistic writes, photo uploads
+    wardrobe/form.svelte.ts       "add a piece" form state: colour from photo, similar pieces, brand suggestions
+    wardrobe/search.ts            keyword search with EN/PT synonyms, meaning groups and one-typo tolerance
+    wardrobe/stats.ts             numbers behind the Statistics page
+    wardrobe/photos.ts            shrink photos (original + thumbnail), read the dominant colour
+    wardrobe/icons.ts             line drawings + iconFor(item)
+    components/                   Menu, FloatingSearch, PageHeader, Verdict, ItemGrid, PieceFields,
+                                  QuickAdd, ItemDetail, Toast, PlaceDrawing
   routes/
-    login/                      email + password sign-in
-    logout/                     POST to sign out
-    +page                       home: the two places
-    places/[placeId]/           clothing-type squares + Everything
-    places/[placeId]/[type]/    items of one type (or "all") in a place
+    login/  logout/               email + password sign-in, sign-out
+    (app)/+layout                 shell: menu, search, quick-add and detail panels, toast
+    (app)/                        home: the two places
+    (app)/places/[placeId]/       clothing-type squares + Everything (search shows results here)
+    (app)/places/[placeId]/[type] pieces of one type (or "all") in a place
+    (app)/all                     All clothing, filter by place and type
+    (app)/add                     the full "Add a piece" page
+    (app)/stats                   Statistics
 supabase/
   config.toml
-  migrations/                   the schema, applied to the hosted project
+  migrations/                     the schema, applied to the hosted project
 ```
 
 ## Data model
@@ -67,11 +74,6 @@ npm run db:types          # refresh src/lib/supabase/database.types.ts
 
 ## Next up
 
-- Floating menu button + drop-down pill menu, floating search
-- Item detail panel (edit notes, photo, move place, remove with undo)
-- Quick-add panel and full "Add a piece" page (brand suggestions, "you already own N similar")
-- Photo upload with thumbnails
-- Statistics page
-- Search: keyword + typo tolerance first, then multilingual semantic search with pgvector
-- Colour and type detection from photos
-- Deploy (Vercel) and install on the phone as a home-screen app
+- Search: multilingual semantic search with pgvector (keyword search is in place)
+- Clothing type detection from photos (colour detection is in place)
+- Install on the phone as a home-screen app (web app manifest + icon)

@@ -186,4 +186,33 @@
 			padding: 48px 20px;
 		}
 	}
+	/* two cards per row on phones, so a shop check needs less scrolling */
+	@media (max-width: 520px) {
+		.grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+		}
+		.meta {
+			padding: 10px 12px 12px;
+			gap: 4px;
+		}
+		.nm {
+			font-size: 14px;
+		}
+		.price {
+			font-size: 13px;
+		}
+		.sub {
+			font-size: 12px;
+		}
+		/* colour and brand on one line, the place on the next */
+		.sub {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 2px;
+		}
+		.cl {
+			max-width: 100%;
+		}
+	}
 </style>

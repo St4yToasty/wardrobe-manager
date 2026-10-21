@@ -71,7 +71,7 @@
 		stroke-linecap: butt;
 	}
 	.draw :global(*) {
-		stroke-dasharray: 1 1;
+		stroke-dasharray: 1 2; /* gap longer than the path, so nothing shows before hover */
 		stroke-dashoffset: 1;
 		transition: stroke-dashoffset 0.42s var(--ease-in-out);
 	}

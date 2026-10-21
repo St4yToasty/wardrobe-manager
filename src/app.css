@@ -18,7 +18,8 @@
 	--place-b: #c8703a; /* second place in charts */
 	--ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-	--font: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font:
+		'Geist Variable', 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 	color-scheme: light;
 }
 
@@ -120,17 +121,23 @@ textarea {
 		border-color 0.25s ease,
 		transform 0.2s var(--ease-out);
 }
-.btn-dark:hover:not(:disabled),
-.btn-ghost:hover,
-.chip:hover,
-.fchip:hover,
-.seg button:hover,
-.mpill:hover,
-.bchip:hover,
-.navpill:hover,
-.place-pick:hover,
-.linkbtn:hover,
-.crumb:hover,
+@media (hover: hover) {
+	.btn-dark:hover:not(:disabled),
+	.btn-ghost:hover,
+	.chip:hover,
+	.fchip:hover,
+	.seg button:hover,
+	.mpill:hover,
+	.bchip:hover,
+	.navpill:hover,
+	.place-pick:hover,
+	.linkbtn:hover,
+	.crumb:hover {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--ground);
+	}
+}
 .chip.on,
 .fchip.on,
 .seg button.on,
@@ -165,9 +172,11 @@ textarea {
 	color: var(--ground);
 	font-weight: 600;
 }
-.btn-dark:hover:not(:disabled) {
-	background: var(--ink-2);
-	border-color: var(--ink-2);
+@media (hover: hover) {
+	.btn-dark:hover:not(:disabled) {
+		background: var(--ink-2);
+		border-color: var(--ink-2);
+	}
 }
 .btn-dark:disabled {
 	background: var(--ground);
@@ -194,9 +203,13 @@ textarea {
 	color: #4a4a47;
 	transition: color 0.25s ease;
 }
-.fchip:hover .n,
 .fchip.on .n {
 	color: #c9c7c1;
+}
+@media (hover: hover) {
+	.fchip:hover .n {
+		color: #c9c7c1;
+	}
 }
 .seg {
 	display: inline-flex;
@@ -211,6 +224,9 @@ textarea {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
+}
+.chips > * {
+	flex: none;
 }
 .bchip {
 	gap: 6px;
@@ -242,9 +258,13 @@ textarea {
 	color: var(--muted);
 	transition: color 0.25s ease;
 }
-.place-pick:hover .sub,
 .place-pick.on .sub {
 	color: var(--ground);
+}
+@media (hover: hover) {
+	.place-pick:hover .sub {
+		color: var(--ground);
+	}
 }
 .iconbtn {
 	width: 44px;
@@ -262,9 +282,11 @@ textarea {
 		color 0.25s ease,
 		transform 0.2s;
 }
-.iconbtn:hover {
-	background: var(--ink);
-	color: var(--ground);
+@media (hover: hover) {
+	.iconbtn:hover {
+		background: var(--ink);
+		color: var(--ground);
+	}
 }
 .iconbtn:active {
 	transform: scale(0.92);
@@ -345,8 +367,10 @@ textarea.field {
 		transform 0.25s var(--ease-out),
 		box-shadow 0.25s;
 }
-.sw:hover {
-	transform: scale(1.1);
+@media (hover: hover) {
+	.sw:hover {
+		transform: scale(1.1);
+	}
 }
 .sw.on {
 	box-shadow:
@@ -403,10 +427,12 @@ textarea.field {
 		border-color 0.3s;
 	animation: rise 0.6s var(--ease-out) backwards;
 }
-.card:hover {
-	transform: translateY(-4px);
-	box-shadow: 0 22px 44px -24px rgba(29, 29, 27, 0.28);
-	border-color: #dedcd5;
+@media (hover: hover) {
+	.card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 22px 44px -24px rgba(29, 29, 27, 0.28);
+		border-color: #dedcd5;
+	}
 }
 .card.leaving {
 	animation: out 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
@@ -430,8 +456,10 @@ textarea.field {
 	overflow: hidden;
 	transition: background 0.4s;
 }
-.card:hover .ph {
-	background: #eae8e2;
+@media (hover: hover) {
+	.card:hover .ph {
+		background: #eae8e2;
+	}
 }
 .ph svg {
 	width: 56%;
@@ -446,11 +474,15 @@ textarea.field {
 	object-fit: cover;
 	transition: transform 0.8s var(--ease-out);
 }
-.card:hover .ph svg {
-	transform: scale(1.06) rotate(-2deg);
+@media (hover: hover) {
+	.card:hover .ph svg {
+		transform: scale(1.06) rotate(-2deg);
+	}
 }
-.card:hover .ph img {
-	transform: scale(1.04);
+@media (hover: hover) {
+	.card:hover .ph img {
+		transform: scale(1.04);
+	}
 }
 .card.fresh .ph {
 	animation: glow 1.6s ease both;
@@ -499,10 +531,12 @@ textarea.field {
 .rm:focus-visible {
 	opacity: 1;
 }
-.rm:hover {
-	background: var(--ink);
-	border-color: var(--ink);
-	color: var(--ground);
+@media (hover: hover) {
+	.rm:hover {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--ground);
+	}
 }
 @media (hover: none) {
 	.rm {
@@ -544,6 +578,9 @@ textarea.field {
 }
 .panel.out {
 	animation: slideOut 0.26s cubic-bezier(0.4, 0, 1, 1) both;
+}
+.panel-body > * {
+	flex-shrink: 0; /* scroll the panel instead of squeezing its contents */
 }
 .panel-foot {
 	display: flex;

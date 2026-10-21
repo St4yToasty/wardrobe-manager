@@ -32,12 +32,14 @@ const supabase: Handle = async ({ event, resolve }) => {
 	 * with getClaims() before the session is trusted.
 	 */
 	event.locals.safeGetSession = async () => {
-		const { data: claimsData, error } = await event.locals.supabase.auth.getClaims();
-		if (error || !claimsData) return { session: null, user: null };
+		const { data, error } = await event.locals.supabase.auth.getClaims();
+		if (error || !data) return { session: null, user: null };
 		const {
 			data: { session }
 		} = await event.locals.supabase.auth.getSession();
-		return { session, user: session?.user ?? null };
+		// the verified token, not the cookie's copy of the user, says who this is
+		const claims = data.claims;
+		return { session, user: { id: claims.sub, email: claims.email ?? null } };
 	};
 
 	return resolve(event, {

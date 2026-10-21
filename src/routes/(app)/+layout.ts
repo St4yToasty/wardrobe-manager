@@ -3,8 +3,8 @@ import type { LayoutLoad } from './$types';
 
 /** The whole wardrobe is small, so it is loaded once and kept in a client store. */
 export const load: LayoutLoad = async ({ parent }) => {
-	const { supabase, session } = await parent();
-	if (!session) redirect(303, '/login');
+	const { supabase, session, userId } = await parent();
+	if (!session || !userId) redirect(303, '/login');
 
 	const [places, types, colours, items] = await Promise.all([
 		supabase.from('places').select('*').order('sort'),
@@ -23,7 +23,7 @@ export const load: LayoutLoad = async ({ parent }) => {
 
 	return {
 		wardrobe: {
-			userId: session.user.id,
+			userId,
 			places: places.data ?? [],
 			types: types.data ?? [],
 			colours: colours.data ?? [],

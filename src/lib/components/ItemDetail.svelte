@@ -68,7 +68,7 @@
 			>
 		</button>
 	</div>
-	<div class="body">
+	<div class="body panel-body">
 		<div class="ph big">
 			{#if photo}
 				<img src={photo} alt={item.name} />

@@ -185,12 +185,14 @@
 			border-color 0.25s ease,
 			transform 0.3s var(--ease-out);
 	}
-	.menubtn:hover {
-		background: var(--ink);
-		border-color: var(--ink);
-	}
-	.menubtn:hover .burger span {
-		background: var(--ground);
+	@media (hover: hover) {
+		.menubtn:hover {
+			background: var(--ink);
+			border-color: var(--ink);
+		}
+		.menubtn:hover .burger span {
+			background: var(--ground);
+		}
 	}
 	.menubtn:active {
 		transform: scale(0.95);
